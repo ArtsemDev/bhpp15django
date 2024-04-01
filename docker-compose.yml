@@ -1,0 +1,30 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+
+  app:
+    container_name: "django-app"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python app/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+#    environment:
+#      SECRET_KEY: 6d5bbbdaaf9908e54db43d9f6ec8ba10b089253fc7ff7ff1ddf76175eb327d2b
+    env_file:
+      - ".env"
+    volumes:
+      - ./app:/opt/app:rw
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    container_name: "django-db"
+    restart: always
+    hostname: "django"
+    image: postgres:16-alpine3.19
+    env_file:
+      - ".env"
