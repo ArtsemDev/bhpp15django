@@ -9,7 +9,7 @@ class Category(models.Model):
         db_comment="category name",  # комментарий атрибута в БД,
         # db_default="",  # значение по умолчанию со стороны БД
         # default="",  # значение по умолчанию со стороны Django ORM,
-        verbose_name="категория",
+        verbose_name="название",
         unique=True,
         validators=(  # список/кортеж дополнительных валидаторов значения атрибута
             MinLengthValidator(limit_value=2),
@@ -21,7 +21,6 @@ class Category(models.Model):
         unique=True,  # уникальность значения
         verbose_name="URL",
         help_text="URL категории",
-        allow_unicode=True,
         validators=(
             MinLengthValidator(limit_value=2),
         ),
@@ -64,6 +63,9 @@ class Article(models.Model):
         allow_unicode=True,
         db_index=False
     )
+    body = models.TextField(
+        verbose_name="описание",
+    )
     date_created = models.DateTimeField(
         verbose_name="дата создания",
         auto_now_add=True  # автоматическое определение даты при создании
@@ -77,7 +79,12 @@ class Article(models.Model):
         on_delete=models.PROTECT,  # ссылочная спецификация при удалении
         related_name="articles",  # название атрибута "с обратной стороны"
         related_query_name="article",  # название атрибута при построении запросов "с обратной стороны"
-        db_index=True
+        db_index=True,
+        verbose_name="категория"
+    )
+    is_published = models.BooleanField(
+        verbose_name="опубликована",
+        default=False
     )
 
     def __str__(self) -> str:
