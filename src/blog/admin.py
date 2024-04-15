@@ -25,18 +25,21 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ("category", "is_published")
     date_hierarchy = "date_created"
     actions = (make_publish, make_unpublish)
+    prepopulated_fields = {
+        "slug": ("title", "category")
+    }
     fieldsets = [
         (
             "Основные",
             {
-                "fields": ["title", "category"]
+                "fields": ["title", "category", "body"]
             },
         ),
         (
             "Дополнительные",
             {
                 "classes": ["collapse"],
-                "fields": ["is_published"]
+                "fields": ["is_published", "slug"]
             },
         )
     ]

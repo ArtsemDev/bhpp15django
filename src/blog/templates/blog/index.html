@@ -1,0 +1,12 @@
+{% extends 'blog/layout.html' %}
+
+{% block title %}
+НОВОСТНОЙ ПОРТАЛ
+{% endblock %}
+
+{% block main %}
+    <!-- Post preview-->
+    {% include 'blog/components/article-list.html' %}
+    <!-- Pager-->
+    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+{% endblock %}

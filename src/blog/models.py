@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -86,6 +87,16 @@ class Article(models.Model):
         verbose_name="опубликована",
         default=False
     )
+
+    def get_absolute_url(self):
+        # return f"/blog/{self.category.slug}/{self.slug}/"
+        return reverse(
+            viewname="article-detail",
+            kwargs={
+                "category_slug": self.category.slug,
+                "article_slug": self.slug
+            }
+        )
 
     def __str__(self) -> str:
         return self.title  # noqa

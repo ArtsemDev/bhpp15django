@@ -1,0 +1,9 @@
+{% extends 'blog/layout.html' %}
+
+{% block title %}
+{{ article.title|upper }}
+{% endblock %}
+
+{% block main %}
+{{ article.body }}
+{% endblock %}
